@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // Import screens
 import HomeScreen from './screens/HomeScreen';
@@ -22,21 +22,8 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
 
-  const [user, setUser] = useState(null);
   const [isChef, setIsChef] = useState(false);
-
-  const authContext = {
-    signIn: (userData: any) => {
-      setUser(userData);
-      setIsChef(userData?.role === 'chef');
-    },
-    signOut: () => {
-      setUser(null);
-      setIsChef(false);
-    },
-    user,
-    isChef,
-  };
+  const [currentUser, setCurrentUser] = useState(null);
 
   return (
     <SafeAreaProvider>
@@ -53,31 +40,54 @@ export default function App() {
             },
           }}
         >
-          <Stack.Screen 
-            name="Home" 
-            component={HomeScreen}
-            options={{ title: 'Taste Toffel' }}
-          />
-          <Stack.Screen 
-            name="Courses" 
-            component={CourseScreen}
-            options={{ title: 'Menu Courses' }}
-          />
-          <Stack.Screen 
-            name="AddMenu" 
-            component={AddMenuScreen}
-            options={{ title: 'Add New Course' }}
-          />
-          <Stack.Screen 
-            name="Login" 
-            component={LoginScreen}
-            options={{ title: 'Login' }}
-          />
-          <Stack.Screen 
-            name="SignUp" 
-            component={SignUpScreen}
-            options={{ title: 'Sign Up' }}
-          />
+          <Stack.Screen name="Home">
+            {(props) => (
+              <HomeScreen 
+                {...props} 
+                isChef={isChef} 
+                currentUser={currentUser}
+                setIsChef={setIsChef}
+                setCurrentUser={setCurrentUser}
+              />
+            )}
+          </Stack.Screen>
+          
+          <Stack.Screen name="Courses">
+            {(props) => (
+              <CourseScreen 
+                {...props} 
+                isChef={isChef}
+                currentUser={currentUser}
+              />
+            )}
+          </Stack.Screen>
+          
+          {isChef && (
+            <Stack.Screen 
+              name="AddMenu" 
+              component={AddMenuScreen}
+              options={{ title: 'Add New Course' }}
+            />
+          )}
+          
+          <Stack.Screen name="Login">
+            {(props) => (
+              <LoginScreen 
+                {...props} 
+                setIsChef={setIsChef}
+                setCurrentUser={setCurrentUser}
+              />
+            )}
+          </Stack.Screen>
+          
+          <Stack.Screen name="SignUp">
+            {(props) => (
+              <SignUpScreen 
+                {...props} 
+                setCurrentUser={setCurrentUser}
+              />
+            )}
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

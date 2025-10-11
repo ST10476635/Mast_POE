@@ -15,6 +15,10 @@ type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 type Props = {
   navigation: HomeScreenNavigationProp;
+  isChef: boolean;
+  currentUser: any;
+  setIsChef: (isChef: boolean) => void;
+  setCurrentUser: (user: any) => void;
 };
 
 export default function HomeScreen({ navigation }: Props) {
