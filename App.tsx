@@ -1,5 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,21 +10,59 @@ import AddMenuScreen from './screens/AddMenuScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
+export type RootStackParamList = {
+  Home: undefined;
+  Courses: undefined;
+  AddMenu: undefined;
+  Login: undefined;
+  SignUp: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator 
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#8B4513',
+            },
+            headerTintColor: '#FFF8DC',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        >
+          <Stack.Screen 
+            name="Home" 
+            component={HomeScreen}
+            options={{ title: 'Taste Toffel' }}
+          />
+          <Stack.Screen 
+            name="Courses" 
+            component={CourseScreen}
+            options={{ title: 'Menu Courses' }}
+          />
+          <Stack.Screen 
+            name="AddMenu" 
+            component={AddMenuScreen}
+            options={{ title: 'Add New Course' }}
+          />
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen}
+            options={{ title: 'Login' }}
+          />
+          <Stack.Screen 
+            name="SignUp" 
+            component={SignUpScreen}
+            options={{ title: 'Sign Up' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
