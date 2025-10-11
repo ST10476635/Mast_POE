@@ -1,7 +1,7 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React, { useState, useEffect } from 'react';
 
 // Import screens
 import HomeScreen from './screens/HomeScreen';
@@ -21,6 +21,23 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
+
+  const [user, setUser] = useState(null);
+  const [isChef, setIsChef] = useState(false);
+
+  const authContext = {
+    signIn: (userData: any) => {
+      setUser(userData);
+      setIsChef(userData?.role === 'chef');
+    },
+    signOut: () => {
+      setUser(null);
+      setIsChef(false);
+    },
+    user,
+    isChef,
+  };
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
