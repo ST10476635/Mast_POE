@@ -58,7 +58,7 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
   
   return (
     <ImageBackground 
-      source={require('../assets/background.jpg')} 
+      source={require('../assets/_restaurants')} 
       style={styles.background}
     >
       <SafeAreaView style={styles.container}>

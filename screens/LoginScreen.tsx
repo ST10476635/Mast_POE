@@ -5,15 +5,17 @@ import {
   View,
   Pressable,
   FlatList,
-  Image,
   ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './../App';
 
-type CourseScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
 type Props = {
-  navigation: CourseScreenNavigationProp;
+  navigation: LoginScreenNavigationProp;
+  setIsChef: (isChef: boolean) => void;
+  setCurrentUser: (user: any) => void;
 };
+
