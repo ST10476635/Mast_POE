@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './../App';
 
-type CourseScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Courses'>;
+type CourseScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>;
 
 type Props = {
   navigation: CourseScreenNavigationProp;
