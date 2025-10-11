@@ -12,10 +12,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './../App';
 
-type CourseScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddMenu'>;
+type AddMenuScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddMenu'>;
 
 type Props = {
-  navigation: CourseScreenNavigationProp;
+  navigation: AddMenuScreenNavigationProp;  // Change this line
 };
 
 export default function AddMenuScreen({ navigation }: Props) {

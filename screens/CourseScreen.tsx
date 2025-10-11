@@ -5,7 +5,6 @@ import {
   View,
   Pressable,
   FlatList,
-  Image,
   ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,6 +15,8 @@ type CourseScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Cours
 
 type Props = {
   navigation: CourseScreenNavigationProp;
+  isChef: boolean;
+  currentUser: any;
 };
 
 type MenuItem = {
@@ -24,7 +25,6 @@ type MenuItem = {
   description: string;
   price: number;
   category: string;
-  image: any;
 };
 
 const mockMenuItems: MenuItem[] = [
@@ -34,7 +34,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Fresh romaine lettuce with Caesar dressing, croutons, and parmesan',
     price: 12.99,
     category: 'Starters',
-    image: require('../assets/salad.jpg'),
   },
   {
     id: '2',
@@ -42,7 +41,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
     price: 24.99,
     category: 'Mains',
-    image: require('../assets/salmon.jpg'),
   },
   {
     id: '3',
@@ -50,13 +48,12 @@ const mockMenuItems: MenuItem[] = [
     description: 'Warm chocolate cake with molten center and vanilla ice cream',
     price: 8.99,
     category: 'Desserts',
-    image: require('../assets/cake.jpg'),
   },
 ];
 
 const categories = ['All', 'Starters', 'Mains', 'Desserts', 'Drinks'];
 
-export default function CourseScreen({ navigation }: Props) {
+export default function CourseScreen({ navigation, isChef, currentUser }: Props) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [menuItems, setMenuItems] = useState<MenuItem[]>(mockMenuItems);
 
@@ -66,7 +63,9 @@ export default function CourseScreen({ navigation }: Props) {
 
   const renderMenuItem = ({ item }: { item: MenuItem }) => (
     <View style={styles.menuCard}>
-      <Image source={item.image} style={styles.menuImage} />
+      <View style={styles.menuImagePlaceholder}>
+        <Text style={styles.menuImageText}>🍽️</Text>
+      </View>
       <View style={styles.menuInfo}>
         <Text style={styles.menuName}>{item.name}</Text>
         <Text style={styles.menuDescription}>{item.description}</Text>
@@ -77,33 +76,34 @@ export default function CourseScreen({ navigation }: Props) {
       </View>
     </View>
   );
-   return (
+
+  return (
     <SafeAreaView style={styles.container}>
-{/* Header Navigation - Different for Chef vs Customer */}
-<View style={styles.headerNav}>
-  <Pressable 
-    style={styles.navButton}
-    onPress={() => navigation.navigate('Home')}
-  >
-    <Text style={styles.navButtonText}>Home</Text>
-  </Pressable>
-  
-  {isChef ? (
-    <Pressable 
-      style={styles.navButton}
-      onPress={() => navigation.navigate('AddMenu')}
-    >
-      <Text style={styles.navButtonText}>Add Course</Text>
-    </Pressable>
-  ) : (
-    <Pressable 
-      style={styles.navButton}
-      onPress={() => navigation.navigate('Login')}
-    >
-      <Text style={styles.navButtonText}>Chef Login</Text>
-    </Pressable>
-  )}
-</View>
+      {/* Header Navigation - Different for Chef vs Customer */}
+      <View style={styles.headerNav}>
+        <Pressable 
+          style={styles.navButton}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Text style={styles.navButtonText}>Home</Text>
+        </Pressable>
+        
+        {isChef ? (
+          <Pressable 
+            style={styles.navButton}
+            onPress={() => navigation.navigate('AddMenu')}
+          >
+            <Text style={styles.navButtonText}>Add Course</Text>
+          </Pressable>
+        ) : (
+          <Pressable 
+            style={styles.navButton}
+            onPress={() => navigation.navigate('Login')}
+          >
+            <Text style={styles.navButtonText}>Chef Login</Text>
+          </Pressable>
+        )}
+      </View>
 
       <ScrollView>
         {/* Category Filter */}
@@ -211,9 +211,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D2B48C',
   },
-  menuImage: {
+  menuImagePlaceholder: {
     width: '100%',
     height: 150,
+    backgroundColor: '#D2B48C',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menuImageText: {
+    fontSize: 40,
   },
   menuInfo: {
     padding: 16,
