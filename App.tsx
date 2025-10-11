@@ -5,6 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+// Import screens
+import HomeScreen from './screens/HomeScreen';
+import CourseScreen from './screens/CourseScreen';
+import AddMenuScreen from './screens/AddMenuScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
+
 
 export default function App() {
   return (
