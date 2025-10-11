@@ -6,6 +6,7 @@ import {
   Pressable,
   ImageBackground,
   ScrollView,
+  Alert
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -65,8 +66,21 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
           <View style={styles.header}>
             <Text style={styles.title}>Taste Toffel</Text>
             <Text style={styles.subtitle}>
-              Professional Chef's Menu Management
+              {isChef ? 'Chef Management Portal' : 'Fine Dining Experience'}
             </Text>
+             
+             {/* User Status */}
+            {(currentUser || isChef) && (
+              <View style={styles.userBadge}>
+                <Text style={styles.userText}>
+                  {isChef ? '👨‍🍳 Chef Mode' : `👤 Welcome, ${currentUser?.name || 'Guest'}`}
+                </Text>
+                <Pressable onPress={isChef ? handleChefLogout : handleUserLogout} style={styles.logoutButton}>
+                  <Text style={styles.logoutText}>Logout</Text>
+                </Pressable>
+              </View>
+            )}
+
           </View>
 
           {/* Welcome Section */}
