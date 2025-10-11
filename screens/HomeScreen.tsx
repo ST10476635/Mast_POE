@@ -21,7 +21,39 @@ type Props = {
   setCurrentUser: (user: any) => void;
 };
 
-export default function HomeScreen({ navigation }: Props) {
+export default function HomeScreen({ navigation, isChef, currentUser, setIsChef, setCurrentUser }: Props) {
+
+  const handleChefLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout as chef?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Logout', 
+          onPress: () => {
+            setIsChef(false);
+            setCurrentUser(null);
+          }
+        },
+      ]
+    );
+  };
+
+  const handleUserLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Logout', 
+          onPress: () => setCurrentUser(null)
+        },
+      ]
+    );
+  };
+  
   return (
     <ImageBackground 
       source={require('../assets/background.jpg')} 
