@@ -32,21 +32,21 @@ const mockMenuItems: MenuItem[] = [
     id: '1',
     name: 'Caesar Salad',
     description: 'Fresh romaine lettuce with Caesar dressing, croutons, and parmesan',
-    price: 12.99,
+    price: 129.99,
     category: 'Starters',
   },
   {
     id: '2',
     name: 'Grilled Salmon',
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
-    price: 24.99,
+    price: 189.99,
     category: 'Mains',
   },
   {
     id: '3',
     name: 'Chocolate Lava Cake',
     description: 'Warm chocolate cake with molten center and vanilla ice cream',
-    price: 8.99,
+    price: 129.99,
     category: 'Desserts',
   },
 ];
@@ -70,7 +70,7 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
         <Text style={styles.menuName}>{item.name}</Text>
         <Text style={styles.menuDescription}>{item.description}</Text>
         <View style={styles.priceContainer}>
-          <Text style={styles.menuPrice}>${item.price.toFixed(2)}</Text>
+          <Text style={styles.menuPrice}>R{item.price.toFixed(2)}</Text>
           <Text style={styles.menuCategory}>{item.category}</Text>
         </View>
       </View>
