@@ -1,3 +1,4 @@
+// CourseScreen.tsx - Updated with more food items
 import React, { useState } from 'react';
 import {
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   Pressable,
   FlatList,
   ScrollView,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,29 +27,88 @@ type MenuItem = {
   description: string;
   price: number;
   category: string;
+  image: any; 
 };
 
 const mockMenuItems: MenuItem[] = [
+  // Starters
   {
     id: '1',
     name: 'Caesar Salad',
     description: 'Fresh romaine lettuce with Caesar dressing, croutons, and parmesan',
-    price: 129.99,
+    price: 89.99,
     category: 'Starters',
+    image: require('../assets/_salad.jpg'),
   },
   {
     id: '2',
+    name: 'Garlic Prawns',
+    description: 'Succulent prawns sautéed in garlic butter with fresh herbs',
+    price: 129.99,
+    category: 'Starters',
+    image: require('../assets/_garlic_prawns.jpg'),
+  },
+  {
+    id: '3',
+    name: 'Caprese Salad',
+    description: 'Fresh mozzarella, tomatoes, and basil with balsamic glaze',
+    price: 79.99,
+    category: 'Starters',
+    image: require('../assets/_caprese_salad.jpg'),
+  },
+  {
+    id: '4',
+    name: 'Beef Carpaccio',
+    description: 'Thinly sliced raw beef with arugula, capers, and parmesan',
+    price: 149.99,
+    category: 'Starters',
+    image: require('../assets/_beef_carpaccio.jpg'),
+  },
+
+  // Mains
+  {
+    id: '5',
     name: 'Grilled Salmon',
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
     price: 189.99,
     category: 'Mains',
+    image: require('../assets/grilled-salmon.jpg'),
   },
   {
-    id: '3',
+    id: '6',
+    name: 'Filet Mignon',
+    description: '8oz premium beef tenderloin with red wine reduction',
+    price: 289.99,
+    category: 'Mains',
+    image: require('../assets/_filet_mignon.jpg'),
+  },
+
+  // Desserts
+  {
+    id: '7',
     name: 'Chocolate Lava Cake',
     description: 'Warm chocolate cake with molten center and vanilla ice cream',
-    price: 129.99,
+    price: 89.99,
     category: 'Desserts',
+    image: require('../assets/_lava_cake.jpg'),
+  },
+  {
+    id: '8',
+    name: 'Tiramisu',
+    description: 'Classic Italian dessert with coffee-soaked ladyfingers',
+    price: 79.99,
+    category: 'Desserts',
+    image: require('../assets/_tiramisu.jpg'),
+  },
+
+  // Drinks
+  {
+    id: '9',
+    name: 'Fresh Orange Juice',
+    description: 'Freshly squeezed orange juice',
+    price: 35.99,
+    category: 'Drinks',
+    image: require('../assets/_fresh_orange_juice.jpg'),
   },
 ];
 
@@ -65,6 +126,7 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
     <View style={styles.menuCard}>
       <View style={styles.menuImagePlaceholder}>
         <Text style={styles.menuImageText}>🍽️</Text>
+        <Text style={styles.imagePlaceholderText}>{item.name}</Text>
       </View>
       <View style={styles.menuInfo}>
         <Text style={styles.menuName}>{item.name}</Text>
@@ -136,6 +198,7 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
         <View style={styles.menuSection}>
           <Text style={styles.sectionTitle}>
             {selectedCategory === 'All' ? 'All Menu Items' : selectedCategory}
+            <Text style={styles.itemCount}> ({filteredItems.length} items)</Text>
           </Text>
           <FlatList
             data={filteredItems}
@@ -180,6 +243,11 @@ const styles = StyleSheet.create({
     color: '#654321',
     marginBottom: 12,
   },
+  itemCount: {
+    fontSize: 14,
+    color: '#8B4513',
+    fontWeight: 'normal',
+  },
   categoryContainer: {
     flexDirection: 'row',
   },
@@ -210,16 +278,29 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#D2B48C',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   menuImagePlaceholder: {
     width: '100%',
-    height: 150,
+    height: 120,
     backgroundColor: '#D2B48C',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
   menuImageText: {
-    fontSize: 40,
+    fontSize: 32,
+    marginBottom: 8,
+  },
+  imagePlaceholderText: {
+    fontSize: 14,
+    color: '#654321',
+    fontWeight: '600',
+    textAlign: 'center',
   },
   menuInfo: {
     padding: 16,
@@ -247,8 +328,12 @@ const styles = StyleSheet.create({
     color: '#8B4513',
   },
   menuCategory: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#CD853F',
     fontWeight: '600',
+    backgroundColor: '#FFF8DC',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
 });
