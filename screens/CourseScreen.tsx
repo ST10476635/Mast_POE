@@ -40,16 +40,9 @@ const mockMenuItems: MenuItem[] = [
     category: 'Starters',
     image: require('../assets/_salad.jpg'),
   },
+  
   {
     id: '2',
-    name: 'Garlic Prawns',
-    description: 'Succulent prawns sautéed in garlic butter with fresh herbs',
-    price: 129.99,
-    category: 'Starters',
-    image: require('../assets/_garlic_prawns.jpg'),
-  },
-  {
-    id: '3',
     name: 'Caprese Salad',
     description: 'Fresh mozzarella, tomatoes, and basil with balsamic glaze',
     price: 79.99,
@@ -57,7 +50,7 @@ const mockMenuItems: MenuItem[] = [
     image: require('../assets/_caprese_salad.jpg'),
   },
   {
-    id: '4',
+    id: '3',
     name: 'Beef Carpaccio',
     description: 'Thinly sliced raw beef with arugula, capers, and parmesan',
     price: 149.99,
@@ -67,7 +60,7 @@ const mockMenuItems: MenuItem[] = [
 
   // Mains
   {
-    id: '5',
+    id: '4',
     name: 'Grilled Salmon',
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
     price: 189.99,
@@ -75,7 +68,7 @@ const mockMenuItems: MenuItem[] = [
     image: require('../assets/grilled-salmon.jpg'),
   },
   {
-    id: '6',
+    id: '5',
     name: 'Filet Mignon',
     description: '8oz premium beef tenderloin with red wine reduction',
     price: 289.99,
@@ -85,7 +78,7 @@ const mockMenuItems: MenuItem[] = [
 
   // Desserts
   {
-    id: '7',
+    id: '6',
     name: 'Chocolate Lava Cake',
     description: 'Warm chocolate cake with molten center and vanilla ice cream',
     price: 89.99,
@@ -93,7 +86,7 @@ const mockMenuItems: MenuItem[] = [
     image: require('../assets/_lava_cake.jpg'),
   },
   {
-    id: '8',
+    id: '7',
     name: 'Tiramisu',
     description: 'Classic Italian dessert with coffee-soaked ladyfingers',
     price: 79.99,
@@ -103,7 +96,7 @@ const mockMenuItems: MenuItem[] = [
 
   // Drinks
   {
-    id: '9',
+    id: '8',
     name: 'Fresh Orange Juice',
     description: 'Freshly squeezed orange juice',
     price: 35.99,
