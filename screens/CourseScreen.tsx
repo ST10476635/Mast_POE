@@ -38,7 +38,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Fresh romaine lettuce with Caesar dressing, croutons, and parmesan',
     price: 89.99,
     category: 'Starters',
-    image: require('../assets/_salad.jpg'),
+    image: require('../assets/salad.jpg'),
   },
   
   {
@@ -47,7 +47,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Fresh mozzarella, tomatoes, and basil with balsamic glaze',
     price: 79.99,
     category: 'Starters',
-    image: require('../assets/_caprese_salad.jpg'),
+    image: require('../assets/caprese-salad.jpg'),
   },
   {
     id: '3',
@@ -55,7 +55,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Thinly sliced raw beef with arugula, capers, and parmesan',
     price: 149.99,
     category: 'Starters',
-    image: require('../assets/_beef_carpaccio.jpg'),
+    image: require('../assets/beef-carpaccio.jpg'),
   },
 
   // Mains
@@ -65,7 +65,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
     price: 189.99,
     category: 'Mains',
-    image: require('../assets/_salmon.jpg'),
+    image: require('../assets/salmon.jpg'),
   },
   {
     id: '5',
@@ -73,7 +73,7 @@ const mockMenuItems: MenuItem[] = [
     description: '8oz premium beef tenderloin with red wine reduction',
     price: 289.99,
     category: 'Mains',
-    image: require('../assets/_filet_mignon.jpg'),
+    image: require('../assets/filet-mignon.jpg'),
   },
 
   // Desserts
@@ -83,7 +83,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Warm chocolate cake with molten center and vanilla ice cream',
     price: 89.99,
     category: 'Desserts',
-    image: require('../assets/_lava_cake.jpg'),
+    image: require('../assets/lava-cake.jpg'),
   },
   {
     id: '7',
@@ -91,7 +91,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Classic Italian dessert with coffee-soaked ladyfingers',
     price: 79.99,
     category: 'Desserts',
-    image: require('../assets/_tiramisu.jpg'),
+    image: require('../assets/tiramisu.jpg'),
   },
 
   // Drinks
@@ -101,7 +101,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Freshly squeezed orange juice',
     price: 35.99,
     category: 'Drinks',
-    image: require('../assets/_fresh_orange_juice.jpg'),
+    image: require('../assets/fresh-orange-juice.jpg'),
   },
 ];
 
