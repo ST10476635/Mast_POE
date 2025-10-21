@@ -65,7 +65,7 @@ const mockMenuItems: MenuItem[] = [
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
     price: 189.99,
     category: 'Mains',
-    image: require('../assets/grilled-salmon.jpg'),
+    image: require('../assets/_salmon.jpg'),
   },
   {
     id: '5',
