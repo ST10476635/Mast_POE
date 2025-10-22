@@ -1,14 +1,5 @@
-// CourseScreen.tsx - Updated with more food items
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  FlatList,
-  ScrollView,
-  Image,
-} from 'react-native';
+import { StyleSheet, Text, View, Pressable, FlatList, ScrollView, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './../App';
@@ -27,7 +18,35 @@ type MenuItem = {
   description: string;
   price: number;
   category: string;
-  image: any; 
+};
+
+// Food icons based on category
+const getCategoryIcon = (category: string) => {
+  switch (category) {
+    case 'Starters':
+      return '🥗';
+    case 'Mains':
+      return '🍽️';
+    case 'Desserts':
+      return '🍰';
+    case 'Drinks':
+      return '🥤';
+    default:
+      return '🍴';
+  }
+};
+
+// Food icons for specific dishes
+const getDishIcon = (name: string) => {
+  const lowerName = name.toLowerCase();
+  if (lowerName.includes('salad')) return '🥗';
+  if (lowerName.includes('beef') || lowerName.includes('carpaccio')) return '🥩';
+  if (lowerName.includes('salmon')) return '🐟';
+  if (lowerName.includes('filet')) return '🥩';
+  if (lowerName.includes('chocolate') || lowerName.includes('cake')) return '🍫';
+  if (lowerName.includes('tiramisu')) return '☕';
+  if (lowerName.includes('juice')) return '🧃';
+  return '🍴';
 };
 
 const mockMenuItems: MenuItem[] = [
@@ -38,16 +57,13 @@ const mockMenuItems: MenuItem[] = [
     description: 'Fresh romaine lettuce with Caesar dressing, croutons, and parmesan',
     price: 89.99,
     category: 'Starters',
-    image: require('../assets/salad.jpg'),
   },
-  
   {
     id: '2',
     name: 'Caprese Salad',
     description: 'Fresh mozzarella, tomatoes, and basil with balsamic glaze',
     price: 79.99,
     category: 'Starters',
-    image: require('../assets/caprese-salad.jpg'),
   },
   {
     id: '3',
@@ -55,7 +71,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Thinly sliced raw beef with arugula, capers, and parmesan',
     price: 149.99,
     category: 'Starters',
-    image: require('../assets/beef-carpaccio.jpg'),
   },
 
   // Mains
@@ -65,7 +80,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Atlantic salmon with herb butter and seasonal vegetables',
     price: 189.99,
     category: 'Mains',
-    image: require('../assets/salmon.jpg'),
   },
   {
     id: '5',
@@ -73,7 +87,6 @@ const mockMenuItems: MenuItem[] = [
     description: '8oz premium beef tenderloin with red wine reduction',
     price: 289.99,
     category: 'Mains',
-    image: require('../assets/filet-mignon.jpg'),
   },
 
   // Desserts
@@ -83,7 +96,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Warm chocolate cake with molten center and vanilla ice cream',
     price: 89.99,
     category: 'Desserts',
-    image: require('../assets/lava-cake.jpg'),
   },
   {
     id: '7',
@@ -91,7 +103,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Classic Italian dessert with coffee-soaked ladyfingers',
     price: 79.99,
     category: 'Desserts',
-    image: require('../assets/tiramisu.jpg'),
   },
 
   // Drinks
@@ -101,7 +112,6 @@ const mockMenuItems: MenuItem[] = [
     description: 'Freshly squeezed orange juice',
     price: 35.99,
     category: 'Drinks',
-    image: require('../assets/fresh-orange-juice.jpg'),
   },
 ];
 
@@ -117,9 +127,9 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
 
   const renderMenuItem = ({ item }: { item: MenuItem }) => (
     <View style={styles.menuCard}>
-      <View style={styles.menuImagePlaceholder}>
-        <Text style={styles.menuImageText}>🍽️</Text>
-        <Text style={styles.imagePlaceholderText}>{item.name}</Text>
+      <View style={styles.menuIconContainer}>
+        <Text style={styles.menuIcon}>{getDishIcon(item.name)}</Text>
+        <Text style={styles.categoryIcon}>{getCategoryIcon(item.category)}</Text>
       </View>
       <View style={styles.menuInfo}>
         <Text style={styles.menuName}>{item.name}</Text>
@@ -179,7 +189,7 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
                     styles.categoryText,
                     selectedCategory === category && styles.categoryTextSelected
                   ]}>
-                    {category}
+                    {category} {getCategoryIcon(category)}
                   </Text>
                 </Pressable>
               ))}
@@ -276,26 +286,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-  },
-  menuImagePlaceholder: {
-    width: '100%',
-    height: 120,
-    backgroundColor: '#D2B48C',
-    justifyContent: 'center',
+    flexDirection: 'row',
     alignItems: 'center',
-    position: 'relative',
   },
-  menuImageText: {
+  menuIconContainer: {
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF8DC',
+    borderRightWidth: 1,
+    borderRightColor: '#D2B48C',
+  },
+  menuIcon: {
     fontSize: 32,
-    marginBottom: 8,
+    marginBottom: 4,
   },
-  imagePlaceholderText: {
-    fontSize: 14,
-    color: '#654321',
-    fontWeight: '600',
-    textAlign: 'center',
+  categoryIcon: {
+    fontSize: 16,
+    opacity: 0.7,
   },
   menuInfo: {
+    flex: 1,
     padding: 16,
   },
   menuName: {
