@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  Alert,
-  TextInput,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, Pressable, Alert, TextInput, ScrollView, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MenuItem, RootStackParamList } from './../App';
