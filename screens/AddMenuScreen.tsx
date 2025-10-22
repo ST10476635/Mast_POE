@@ -15,7 +15,7 @@ import { RootStackParamList } from './../App';
 type AddMenuScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddMenu'>;
 
 type Props = {
-  navigation: AddMenuScreenNavigationProp;  // Change this line
+  navigation: AddMenuScreenNavigationProp;
 };
 
 export default function AddMenuScreen({ navigation }: Props) {
@@ -32,7 +32,6 @@ export default function AddMenuScreen({ navigation }: Props) {
       return;
     }
 
-    // Here you would typically send the data to your backend
     Alert.alert('Success', 'Course added successfully!');
     
     // Reset form
@@ -151,7 +150,7 @@ export default function AddMenuScreen({ navigation }: Props) {
             </View>
           </View>
 
-          {/* Image Upload Placeholder */}
+          {/* Image Upload */}
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Course Image</Text>
             <View style={styles.imageUpload}>
