@@ -200,7 +200,7 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
               <Text style={styles.featuredDescription}>
                 Fresh Atlantic salmon with herb butter and seasonal vegetables
               </Text>
-              <Text style={styles.featuredPrice}>$24.99</Text>
+              <Text style={styles.featuredPrice}>R299.99</Text>
               {isChef && (
                 <Text style={styles.featuredStats}>
                   📊 45 orders this week • ⭐ 4.9/5
@@ -232,12 +232,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#654321',
+    color: '#f7f7f7ff',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#654321',
+    color: '#fdfdfdff',
     textAlign: 'center',
   },
   userBadge: { 
@@ -403,12 +403,12 @@ const styles = StyleSheet.create({
   },
   loginPrompt: {
     fontSize: 14,
-    color: '#654321',
+    color: '#ffffffff',
     marginRight: 8,
   },
   loginLink: {
     fontSize: 14,
-    color: '#8B4513',
+    color: '#fddc1dff',
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#654321',
+    color: '#ffffffff',
     marginBottom: 12,
   },
   featuredCard: {
