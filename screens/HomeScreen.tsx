@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from './../App';
+import { RootStackParamList, MenuItem } from './../App';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -21,9 +21,10 @@ type Props = {
   currentUser: any;
   setIsChef: (isChef: boolean) => void;
   setCurrentUser: (user: any) => void;
+  menuItems: MenuItem[];
 };
 
-export default function HomeScreen({ navigation, isChef, currentUser, setIsChef, setCurrentUser }: Props) {
+export default function HomeScreen({ navigation, isChef, currentUser, setIsChef, setCurrentUser, menuItems }: Props) {
 
   const handleChefLogout = () => {
     Alert.alert(
@@ -55,6 +56,8 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
       ]
     );
   };
+
+  const totalItems = menuItems.length;
   
   return (
     <ImageBackground 
@@ -70,7 +73,7 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
               {isChef ? 'Chef Management Portal' : 'Fine Dining Experience'}
             </Text>
              
-             {/* User Status */}
+            {/* User Status */}
             {(currentUser || isChef) && (
               <View style={styles.userBadge}>
                 <Text style={styles.userText}>
@@ -81,7 +84,6 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
                 </Pressable>
               </View>
             )}
-
           </View>
 
           {/* Welcome Message Based on Role */}
@@ -92,41 +94,41 @@ export default function HomeScreen({ navigation, isChef, currentUser, setIsChef,
             </Text>
             <Text style={styles.welcomeText}>
               {isChef 
-                ? 'Manage your restaurant menu and create amazing culinary experiences.'
+                ? `Manage your ${totalItems} menu items and create amazing culinary experiences.`
                 : currentUser
-                ? 'Ready to explore our delicious menu?'
-                : 'Discover our exquisite menu crafted by our master chef.'}
+                ? `Ready to explore our ${totalItems} delicious menu items?`
+                : `Discover our ${totalItems} exquisite dishes crafted by our master chef.`}
             </Text>
           </View>
 
-          {/* Quick Stats - Different for Chef vs Customer */}
+          {/* Quick Stats - Updated with real data */}
           <View style={styles.statsContainer}>
             {isChef ? (
-              // Chef Statistics
+              // Chef Statistics with real data
               <>
                 <View style={styles.statCard}>
-                  <Text style={styles.statNumber}>12</Text>
-                  <Text style={styles.statLabel}>Active Courses</Text>
+                  <Text style={styles.statNumber}>{totalItems}</Text>
+                  <Text style={styles.statLabel}>Total Items</Text>
                 </View>
                 <View style={styles.statCard}>
-                  <Text style={styles.statNumber}>3</Text>
-                  <Text style={styles.statLabel}>New Today</Text>
+                  <Text style={styles.statNumber}>
+                    {menuItems.filter(item => item.category === 'Starters').length}
+                  </Text>
+                  <Text style={styles.statLabel}>Starters</Text>
                 </View>
               </>
             ) : (
-              // Customer View
+              // Customer View with real data
               <View style={styles.customerStats}>
                 <Text style={styles.customerStatText}>⭐ 4.8/5 Rating</Text>
-                <Text style={styles.customerStatText}>🍽️ 50+ Dishes</Text>
+                <Text style={styles.customerStatText}>🍽️ {totalItems}+ Dishes</Text>
                 <Text style={styles.customerStatText}>👨‍🍳 Master Chef</Text>
               </View>
             )}
-
           </View>
 
- {/* Navigation Buttons - Role Based */}
+          {/* Rest of the component remains the same */}
           <View style={styles.buttonContainer}>
-            {/* Both can view courses */}
             <Pressable 
               style={[styles.button, styles.primaryButton]}
               onPress={() => navigation.navigate('Courses')}

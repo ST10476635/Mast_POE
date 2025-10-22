@@ -10,15 +10,17 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from './../App';
+import { MenuItem, RootStackParamList } from './../App';
 
 type AddMenuScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddMenu'>;
 
 type Props = {
   navigation: AddMenuScreenNavigationProp;
+  menuItems: MenuItem[];
+  setMenuItems: (items: MenuItem[]) => void;
 };
 
-export default function AddMenuScreen({ navigation }: Props) {
+export default function AddMenuScreen({ navigation, menuItems,setMenuItems }: Props) {
   const [courseName, setCourseName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -32,6 +34,25 @@ export default function AddMenuScreen({ navigation }: Props) {
       return;
     }
 
+    // Validate price is a number
+    const priceValue = parseFloat(price);
+    if (isNaN(priceValue) || priceValue <= 0) {
+      Alert.alert('Error', 'Please enter a valid price');
+      return;
+    }
+
+    // Create new menu item
+    const newItem: MenuItem = {
+      id: Date.now().toString(), // Generate unique ID
+      name: courseName,
+      description: description,
+      price: priceValue,
+      category: category,
+    };
+
+    // Actually save to global state
+    setMenuItems([...menuItems, newItem]);
+
     Alert.alert('Success', 'Course added successfully!');
     
     // Reset form
@@ -44,19 +65,23 @@ export default function AddMenuScreen({ navigation }: Props) {
     navigation.navigate('Courses');
   };
 
-  const handleDiscard = () => {
-    Alert.alert(
-      'Discard Changes',
-      'Are you sure you want to discard this course?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { 
-          text: 'Discard', 
-          style: 'destructive',
-          onPress: () => navigation.navigate('Home')
-        },
-      ]
-    );
+   const handleDiscard = () => {
+    if (courseName || description || price || category) {
+      Alert.alert(
+        'Discard Changes',
+        'Are you sure you want to discard this course?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { 
+            text: 'Discard', 
+            style: 'destructive',
+            onPress: () => navigation.navigate('Home')
+          },
+        ]
+      );
+    } else {
+      navigation.navigate('Home');
+    }
   };
 
   return (
@@ -147,16 +172,6 @@ export default function AddMenuScreen({ navigation }: Props) {
                   </Text>
                 </Pressable>
               ))}
-            </View>
-          </View>
-
-          {/* Image Upload */}
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Course Image</Text>
-            <View style={styles.imageUpload}>
-              <Text style={styles.imageUploadText}>
-                Tap to upload course image
-              </Text>
             </View>
           </View>
 

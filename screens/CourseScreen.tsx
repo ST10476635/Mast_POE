@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable, FlatList, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, Pressable, FlatList, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './../App';
@@ -10,6 +10,8 @@ type Props = {
   navigation: CourseScreenNavigationProp;
   isChef: boolean;
   currentUser: any;
+  menuItems: MenuItem[];
+  setMenuItems: (items: MenuItem[]) => void;
 };
 
 type MenuItem = {
@@ -117,13 +119,30 @@ const mockMenuItems: MenuItem[] = [
 
 const categories = ['All', 'Starters', 'Mains', 'Desserts', 'Drinks'];
 
-export default function CourseScreen({ navigation, isChef, currentUser }: Props) {
+export default function CourseScreen({ navigation, isChef, currentUser, menuItems, setMenuItems }: Props) {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(mockMenuItems);
 
   const filteredItems = selectedCategory === 'All' 
     ? menuItems 
     : menuItems.filter(item => item.category === selectedCategory);
+
+  // Add delete functionality
+  const handleDeleteItem = (itemId: string) => {
+    Alert.alert(
+      'Delete Item',
+      'Are you sure you want to delete this menu item?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Delete', 
+          style: 'destructive',
+          onPress: () => {
+            setMenuItems(menuItems.filter(item => item.id !== itemId));
+          }
+        },
+      ]
+    );
+  };
 
   const renderMenuItem = ({ item }: { item: MenuItem }) => (
     <View style={styles.menuCard}>
@@ -138,6 +157,14 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
           <Text style={styles.menuPrice}>R{item.price.toFixed(2)}</Text>
           <Text style={styles.menuCategory}>{item.category}</Text>
         </View>
+        {isChef && (
+          <Pressable 
+            style={styles.deleteButton}
+            onPress={() => handleDeleteItem(item.id)}
+          >
+            <Text style={styles.deleteButtonText}>Delete</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
@@ -171,7 +198,7 @@ export default function CourseScreen({ navigation, isChef, currentUser }: Props)
       </View>
 
       <ScrollView>
-        {/* Category Filter */}
+        {/* Category Filter - remains the same */}
         <View style={styles.filterSection}>
           <Text style={styles.sectionTitle}>Filter by Course</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -340,4 +367,17 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 12,
   },
+  deleteButton: {
+    marginTop: 10,
+    padding: 8,
+    backgroundColor: '#FF3B30',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+
 });
